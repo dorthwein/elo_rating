@@ -28,9 +28,9 @@ class EloRating::Match
   #
   # Raises an +ArgumentError+ if more than one player is marked as the winner or
   # if some but not all players have +place+ specified.
-	def updated_ratings
+  def updated_ratings
 		validate_players!
-		players.map{|x| {player: x.player, updated_rating: x.updated_rating}}
+		players
 	end
 
   private
