@@ -28,10 +28,10 @@ class EloRating::Match
   #
   # Raises an +ArgumentError+ if more than one player is marked as the winner or
   # if some but not all players have +place+ specified.
-  def updated_ratings
-    validate_players!
-    players.map(&:updated_rating)
-  end
+	def updated_ratings
+		validate_players!
+		players.map{|x| {player: x.player, updated_rating: x.updated_rating}}
+	end
 
   private
 
@@ -51,14 +51,16 @@ class EloRating::Match
 
   class Player
   # :nodoc:
-    attr_reader :rating, :place, :match
-    def initialize(match: nil, rating: 1000, place: nil, winner: nil)
+    attr_reader :rating, :place, :match, :player
+    def initialize(match: nil, rating: 1000, place: nil, winner: nil, player: nil)
       validate_attributes!(rating: rating, place: place, winner: winner)
       @match = match
       @rating = rating
       @place = place
       @winner = winner
-    end
+      @player = player
+	  end
+
 
     def winner?
       @winner
